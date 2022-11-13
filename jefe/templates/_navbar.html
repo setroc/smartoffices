@@ -1,0 +1,51 @@
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="/jefe">SmartOffices</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="/jefe/edit">Editar perfil</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Equipo
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/jefe/newTeam/">Crear equipo</a></li>
+            <li><a class="dropdown-item" href="/jefe/teams/">Listar equipos</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/jefe/teams/asignar/">Asignar trabajador</a></li>
+            <li><a class="dropdown-item" href="/jefe/teams/tarea/">Asignar tarea</a></li>
+            <li><a class="dropdown-item" href="/jefe/teams/reunion/">Agendar meeting</a></li>
+<!-- 
+            <li><a class="dropdown-item" href="/jefe/createTask/">Nueva tarea</a></li>
+            <li><a class="dropdown-item" href="/jefe/meeting">Nuevo meeting</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Nuevo trabajador</a></li> -->
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Trabajador
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/user/signupTrabajador/">Crear trabajador</a></li>
+            <li><a class="dropdown-item" href="/jefe/trabajadores/">Listar trabajadores</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/jefe/signout">Cerrar sesión</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <h2>Jefe</h2>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>

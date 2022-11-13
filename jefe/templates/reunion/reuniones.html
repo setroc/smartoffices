@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <h1>Reuniones creadas</h1>
+
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Título</th>
+        <th scope="col">URL</th>
+        <th scope="col">Descripción</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Retroalimentación</th>
+      </tr>
+    </thead>
+    {% for reunion in reuniones %}
+    <tbody>
+      <tr>
+        <td>{{reunion.titulo}}</td>
+        <td><a href="{{reunion.link}}">{{reunion.link}}</a></td>
+        <td>{{reunion.descripcion}}</td>
+        <td>{{reunion.fecha}}</td>
+        <td>Añadir</td>
+    </tbody>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

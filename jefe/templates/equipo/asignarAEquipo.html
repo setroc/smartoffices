@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container w-50 mt-5">
+  <h1>Asignar un trabajador a un equipo</h1>
+  {% if success %}
+  <div class="alert alert-success" role="alert">
+    {{ success }}
+  </div>
+  {% endif %}
+  {% if error %}
+  <div class="alert alert-danger" role="alert">
+    {{error}}
+  </div>
+  {% endif %}
+  <form action="/jefe/teams/asignar/" method="POST">
+    {% csrf_token %}
+    <label for="equipo" class="form-label mt-3">Selecciona un equipo:</label>
+    <select name="equipo" id="equipo" class="form-select" aria-label="Default select example">
+      <option selected disabled>Selecciona una opción</option>
+      {% for equipo in equipos %}
+      <option value="{{equipo.id}}">{{equipo.titulo}}</option>
+      {% endfor %}
+    </select>
+
+    <label for="trabajador" class="form-label mt-3">Selecciona un trabajador:</label>
+    <select name="trabajador" id="trabajador" class="form-select" aria-label="Default select example">
+      <option selected disabled>Selecciona una opción</option>
+      {% for trabajador in trabajadores %}
+      <option value="{{trabajador.id}}">{{trabajador.nombre}} {{trabajador.apellidos}}</option>
+      {% endfor %}
+    </select>
+
+    <div class="d-grid mt-4">
+      <button class="btn btn-primary btn-block mb-4">Asignar trabajador a equipo</button>
+    </div>
+
+  </form>
+</div>
+{% endblock %}

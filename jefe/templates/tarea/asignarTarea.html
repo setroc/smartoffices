@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5 d-flex flex-column align-items-center">
+  <h1 class="align-self-start">Asignar tarea</h1>
+
+
+  <table class="table w-75">
+    <thead>
+      <tr>
+        <th scope="col">Equipo</th>
+        <th scope="col">Ver tareas</th>
+        <th scope="col">Agregar tarea</th>
+      </tr>
+    </thead>
+    {% for equipo in equipos %}
+    <tbody>
+      <tr>
+        <td>{{equipo.titulo}}</td>
+        <td>
+          <a href="/jefe/teams/tarea/{{equipo.id}}/ver"><i class="fa-solid fa-eye"></i></a>
+        </td>
+        <td>
+          <a href="/jefe/teams/tarea/{{equipo.id}}"><i class="fa-regular fa-pen-to-square"></i></a>
+        </td>
+      </tr>
+    </tbody>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

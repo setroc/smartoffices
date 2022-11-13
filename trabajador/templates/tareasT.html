@@ -1,0 +1,34 @@
+{% extends 'baseT.html' %}
+{% block content %}
+<div class="container mt-5">
+  <h1>Tareas asignadas</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Titulo</th>
+        <th scope="col">Descripción</th>
+        <th scope="col">Completado</th>
+        <th scope="col">Completar</th>
+      </tr>
+    </thead>
+    {% for tarea in tareas %}
+    <tbody>
+      <tr>
+        <td>{{tarea.titulo}}</td>
+        <td>{{tarea.descripcion}}</td>
+        <td>
+          {% if tarea.completado %}
+            Si
+          {% else %}
+            No
+          {% endif %}
+        </td>
+        <td>
+          <button class="btn btn-primary" {% if tarea.completado %} disabled {% endif %}>Completar</button>
+        </td>
+      </tr>
+    </tbody>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

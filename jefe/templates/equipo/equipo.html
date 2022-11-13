@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <h1>Trabajadores del equipo: {{equipo.titulo}}</h1>
+
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Username</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Apellidos</th>
+        <th scope="col">Email</th>
+      </tr>
+    </thead>
+    {% for equipo in equipos %}
+    <tbody>
+      <tr>
+        <td>{{equipo.trabajador.username}}</td>
+        <td>{{equipo.trabajador.nombre}}</td>
+        <td>{{equipo.trabajador.apellidos}}</td>
+        <td>{{equipo.trabajador.email}}</td>
+      </tr>
+    </tbody>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

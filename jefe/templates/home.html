@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+  .container  i {
+    font-size: 5rem;
+    color: darkgray;
+  }
+  /* HIDE RADIO */
+  [type=radio] { 
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  /* IMAGE STYLES */
+  [type=radio] + i {
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  /* CHECKED STYLES */
+  [type=radio]:checked + i {
+    color: black;
+  }
+  textarea {
+    resize: none;
+  }
+</style>
+<div class="container mt-5">
+  <form action="" method="post">
+    <h1>Bienvenido {{user.get_username}}</h1>
+    <h2 class="my-4">¿Cómo te sientes el día de hoy?</h2>
+    <div class="container mb-2 mt-2">
+      <label>
+        <input type="radio" name="sentimiento" value="feliz" checked>
+        <i class="fa-solid fa-face-smile"></i></
+      </label>
+      <label>
+        <input type="radio" name="sentimiento" value="meh">
+        <i class="fa-solid fa-face-meh"></i>
+      </label>
+      <label>
+        <input type="radio" name="sentimiento" value="triste">
+        <i class="fa-solid fa-face-sad-tear"></i></
+      </label>
+      
+    </div>
+    <h2 class="my-4">¿Qué pasa?</h2>
+    <textarea class="form-control" placeholder="Expresa como te sientes en este cuadro de texto" id="texto" style="height: 100px"></textarea>
+    <button class="btn btn-primary btn-block my-4"> Envíar</button>
+  </form>
+</div>
+{% endblock %}

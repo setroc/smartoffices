@@ -1,0 +1,25 @@
+{% extends 'baseT.html' %}
+{% block content %}
+<div class="container w-25 mt-5">
+  <h1>Iniciar sesión</h1>
+  {% if error %}
+  <div class="alert alert-danger" role="alert">
+    {{error}}
+  </div>
+  {% endif %}
+  <form action="/trabajador/signin/" method="post">
+    {% csrf_token %}
+    <div class="form-outline mb-4">
+      <label class="form-label" for="id_username">Username:</label>
+      <input name="username" type="text" id="id_username" class="form-control" autofocus required/>
+    </div>
+    <div class="form-outline mb-4">
+      <label class="form-label" for="id_password1">Contraseña:</label>
+      <input type="password" id="id_password1" class="form-control" name="password1" required/>
+    </div>
+    <div class="d-grid">
+      <button class="btn btn-primary btn-block mb-4">Iniciar sesión</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container w-50 mt-5">
+  <h1>Editar trabajador</h1>
+  {% if success %}
+  <div class="alert alert-success" role="alert">
+    {{ success }}
+  </div>
+  {% endif %}
+  {% if error %}
+  <div class="alert alert-danger" role="alert">
+    {{error}}
+  </div>
+  {% endif %}
+  <form action="/jefe/trabajadores/{{trabajador.id}}" method="post">
+    {% csrf_token %}
+    <!-- Email input -->
+    <div class="form-outline mb-4">
+      <label class="form-label" for="id_username">Username:</label>
+      <input value="{{ trabajador.username }}" name="username" type="text" id="id_username" class="form-control" autofocus required/>
+    </div>
+    <div class="form-outline mb-4">
+      <label class="form-label" for="id_nombre">Nombre:</label>
+      <input value="{{ trabajador.nombre }}" name="nombre" type="text" id="id_nombre" class="form-control" autofocus required/>
+    </div>
+    <div class="form-outline mb-4">
+      <label class="form-label" for="id_apellidos">Apellidos:</label>
+      <input value="{{ trabajador.apellidos }}" name="apellidos" type="text" id="id_apellidos" class="form-control" autofocus required/>
+    </div>
+    <div class="form-outline mb-4">
+      <label class="form-label" for="id_correo">Correo:</label>
+      <input value="{{ trabajador.email }}" name="email" type="email" id="id_correo" class="form-control" autofocus required/>
+    </div>
+
+    <!-- Submit button -->
+    <div class="d-grid">
+      <button class="btn btn-primary btn-block mb-4">Editar trabajador</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

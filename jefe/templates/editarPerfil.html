@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container w-50 mt-5">
+  <h1>Editar perfil</h1>
+  {% if success %}
+  <div class="alert alert-success" role="alert">
+    {{ success }}
+  </div>
+  {% endif %}
+  {% if error %}
+  <div class="alert alert-danger" role="alert">
+    {{error}}
+  </div>
+  {% endif %}
+  
+  <form action="/jefe/edit/" method="post">
+    {% csrf_token %}
+    <!-- Email input -->
+    <div class="form-outline mb-4">
+      <label class="form-label" for="id_username">Username:</label>
+      <input value="{{ user.get_username }}" name="username" type="text" id="id_username" class="form-control" autofocus required/>
+    </div>
+    <div class="form-outline mb-4">
+      <label class="form-label" for="id_nombre">Nombre:</label>
+      <input value="{{ request.user.nombre }}" name="nombre" type="text" id="id_nombre" class="form-control" autofocus required/>
+    </div>
+    <div class="form-outline mb-4">
+      <label class="form-label" for="id_apellidos">Apellidos:</label>
+      <input value="{{ request.user.apellidos }}" name="apellidos" type="text" id="id_apellidos" class="form-control" autofocus required/>
+    </div>
+    <div class="form-outline mb-4">
+      <label class="form-label" for="id_correo">Correo:</label>
+      <input value="{{ request.user.email }}" name="correo" type="email" id="id_correo" class="form-control" autofocus required/>
+    </div>  
+    <!-- Submit button -->
+    <div class="d-grid">
+      <button class="btn btn-primary mb-4">Editar perfil</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <h1>Tareas creadas</h1>
+
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Trabajador</th>
+        <th scope="col">Título</th>
+        <th scope="col">Descripción</th>
+        <th scope="col">Completado</th>
+      </tr>
+    </thead>
+    {% for tarea in tareas %}
+    <tbody>
+      <tr>
+        <td>{{tarea.trabajador.nombre}}</td>
+        <td>{{tarea.titulo}}</td>
+        <td>{{tarea.descripcion}}</td>
+        <td>
+          {% if tarea.completado %}
+            Si
+          {% else %}
+            No
+          {% endif %}
+        </td>
+      </tr>
+    </tbody>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <h1>Equipos creados</h1>
+
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Descripción</th>
+        <th scope="col">Ver trabajadores</th>
+        <th scope="col">Editar</th>
+      </tr>
+    </thead>
+    {% for equipo in equipos %}
+    <tbody>
+      <tr>
+        <td>{{equipo.titulo}}</td>
+        <td>{{equipo.descripcion}}</td>
+        <td>
+          <form action="{% url 'jefeVerEquipo' equipo.id %}" method="POST">
+            {% csrf_token %}
+            <button class="btn btn-link">
+              <i class="fa-solid fa-eye"></i>
+            </button>
+          </form>
+        </td>
+        <td class="d-flex align-items-center" >
+          <a href="/jefe/teams/{{equipo.id}}"><i class="fa-regular fa-pen-to-square"></i></a>
+          <form action="{% url 'jefeEliminarEquipo' equipo.id %}" method="POST">
+            {% csrf_token %}
+            <button class="btn btn-link">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </form>
+        </td>
+      </tr>
+    </tbody>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

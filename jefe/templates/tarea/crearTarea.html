@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container w-50 mt-5">
+  <h1>Asignar un tarea</h1>
+  {% if success %}
+  <div class="alert alert-success" role="alert">
+    {{ success }}
+  </div>
+  {% endif %}
+  {% if error %}
+  <div class="alert alert-danger" role="alert">
+    {{error}}
+  </div>
+  {% endif %}
+  <form action="/jefe/teams/tarea/{{equipo_id}}" method="POST">
+    {% csrf_token %}
+    <div class="form-outline mb-4">
+      <label for="trabajador" class="form-label mt-3">Selecciona un trabajador:</label>
+      <select name="trabajador" id="trabajador" class="form-select" aria-label="Default select example">
+        <option selected disabled>Selecciona una opción</option>
+        {% for trabajador in trabajadores %}
+        <option value="{{trabajador.trabajador.id}}">{{trabajador.trabajador.nombre}} {{trabajador.trabajador.apellidos}}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="form-outline mb-4">
+      <label class="form-label" for="id_titulo">Título de la tarea:</label>
+      <input name="titulo" type="text" id="id_titulo" class="form-control" autofocus required/>
+    </div>
+    <div class="form-outline mb-4">
+      <label class="form-label" for="id_descripcion">Descripción de la tarea:</label>
+      <textarea class="form-control" name="descripcion" id="id_descripcion" style="height: 100px" required></textarea>
+    </div>
+
+    <div class="d-grid mt-4">
+      <button class="btn btn-primary btn-block mb-4">Asignar tarea</button>
+    </div>
+
+  </form>
+</div>
+{% endblock %}

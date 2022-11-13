@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container w-50 mt-5">
+  <h1>Crear cuenta de trabajador</h1>
+  {% if success %}
+  <div class="alert alert-success" role="alert">
+    {{ success }}
+  </div>
+  {% endif %}
+  {% if error %}
+  <div class="alert alert-danger" role="alert">
+    {{error}}
+  </div>
+  {% endif %}
+  <form action="/user/signupTrabajador/" method="post">
+    {% csrf_token %}
+    <!-- Email input -->
+    <div class="form-outline mb-4">
+      <label class="form-label" for="id_username">Username:</label>
+      <input name="username" type="text" id="id_username" class="form-control" autofocus required/>
+    </div>
+    <div class="form-outline mb-4">
+      <label class="form-label" for="id_nombre">Nombre:</label>
+      <input name="nombre" type="text" id="id_nombre" class="form-control" autofocus required/>
+    </div>
+    <div class="form-outline mb-4">
+      <label class="form-label" for="id_apellidos">Apellidos:</label>
+      <input name="apellidos" type="text" id="id_apellidos" class="form-control" autofocus required/>
+    </div>
+    <div class="form-outline mb-4">
+      <label class="form-label" for="id_correo">Correo:</label>
+      <input name="correo" type="email" id="id_correo" class="form-control" autofocus required/>
+    </div>
+  
+    <!-- Password input -->
+    <div class="form-outline mb-4">
+      <label class="form-label" for="id_password1">Contraseña:</label>
+      <input type="password" id="id_password1" class="form-control" name="password1" required/>
+    </div>
+    <div class="form-outline mb-4">
+      <label class="form-label" for="id_password2">Repetir contraseña:</label>
+      <input type="password" id="id_password2" class="form-control" name="password2" required/>
+    </div>
+  
+    <!-- Submit button -->
+    <div class="d-grid">
+      <button class="btn btn-primary btn-block mb-4">Crear cuenta</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
