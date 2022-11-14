@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
-from .models import Equipo, EquipoHasTrabajador, Tarea
+from .models import Equipo, EquipoHasTrabajador, Tarea, Reunion
 from usuario import models as UsuarioModel
 
 class JefeCreationForm(UserCreationForm):
@@ -50,3 +50,8 @@ class TareaForm(forms.ModelForm):
   class Meta:
     model = Tarea
     fields = ['trabajador','titulo','descripcion']
+
+class ReunionForm(forms.ModelForm):
+  class Meta:
+    model = Reunion
+    fields = ['titulo','link','descripcion','fecha']

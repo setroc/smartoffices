@@ -4,9 +4,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 
-from .forms import JefeUpdateForm, EquipoForm, TrabajadorForm, AsignarEquipoForm, TareaForm
+from .forms import JefeUpdateForm, EquipoForm, TrabajadorForm, AsignarEquipoForm, TareaForm, ReunionForm
 from .models import Equipo, EquipoHasTrabajador, Tarea, Reunion
 from usuario import models as usuarioModels
+from trabajador.models import EstadoAnimo
 
 # Create your views here.
 @login_required
@@ -123,6 +124,12 @@ def eliminarTrabajador(request, trabajador_id):
     return redirect('listarTrabajadores')
 
 @login_required
+def estadosTrabajador(request, trabajador_id):
+  trabajador = get_object_or_404(usuarioModels.Usuario, pk=trabajador_id)
+  estados = EstadoAnimo.objects.filter(usuario=trabajador)
+  return render(request, 'trabajador/estadosAnimo.html',{'trabajador':trabajador,'estados':estados})
+
+@login_required
 def asignarAEquipo(request):
   if request.method == 'GET':
     equipos = Equipo.objects.filter(jefe=request.user)
@@ -170,24 +177,37 @@ def verTareas(request, equipo_id):
 def asignarReunionAEquipo(request):
   equipos = Equipo.objects.filter(jefe=request.user)
   return render(request, 'reunion/asignarReunion.html', {"equipos": equipos})
+
 @login_required
 def crearReunion(request, equipo_id):
   if request.method == "GET":
-    trabajadores = EquipoHasTrabajador.objects.select_related().filter(equipo=equipo_id)
-    return render(request, 'reunion/crearReunion.html',{'trabajadores':trabajadores, 'equipo_id':equipo_id});
+    return render(request, 'reunion/crearReunion.html',{'equipo_id':equipo_id});
   else:
-    try:
-      trabajadores = EquipoHasTrabajador.objects.select_related().filter(equipo=equipo_id)
-      form = TareaForm(request.POST)
-      nuevaTarea = form.save(commit=False)
-      nuevaTarea.equipo = get_object_or_404(Equipo, pk=equipo_id)
-      nuevaTarea.save()
-      return render(request, 'reunion/crearReunion.html',{'trabajadores':trabajadores, 'equipo_id':equipo_id, 'success':'Tarea asignada correctamente.'});
+    try: 
+      form = ReunionForm(request.POST)
+      nuevaReunion = form.save(commit=False)
+      nuevaReunion.equipo = get_object_or_404(Equipo, pk=equipo_id)
+      nuevaReunion.retroalimentacion = ""
+      nuevaReunion.save()
+      return render(request, 'reunion/crearReunion.html',{'equipo_id':equipo_id, 'success': 'Reunión creada correctamente.'})
     except ValueError as e:
-      print(e)
-      return render(request, 'reunion/crearReunion.html',{'trabajadores':trabajadores, 'equipo_id':equipo_id, 'error':'Error al asignar tarea.'});
+        print(e)
+        return render(request, 'reunion/crearReunion.html',{'equipo_id':equipo_id, 'error': 'Error al crear una reunión.'})
+
 @login_required
 def verReuniones(request, equipo_id):
   reuniones = Reunion.objects.select_related().filter(equipo=equipo_id)
-  return render(request, 'reunion/reuniones.html', {"reuniones": reuniones})
+  return render(request, 'reunion/reuniones.html', {"reuniones": reuniones, "equipo_id":equipo_id})
 
+@login_required
+def agregarRetroalimentacion(request,equipo_id,reunion_id):
+  if request.method == "GET":
+    return render(request, 'reunion/agregarRetroalimentacion.html',{'equipo_id':equipo_id,'reunion_id':reunion_id})
+  else:
+    try:
+      reunion = get_object_or_404(Reunion, pk=reunion_id)
+      reunion.retroalimentacion = request.POST['retroalimentacion']
+      reunion.save()
+      return redirect('jefeAsignarReunionAEquipo')
+    except ValueError:
+      return render(request, 'reunion/agregarRetroalimentacion.html',{'equipo_id':equipo_id,'reunion_id':reunion_id, 'error': 'Error al agregar retroalimentación.'})

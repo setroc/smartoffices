@@ -30,25 +30,36 @@
   <h1>Bienvenido {{user.get_username}}</h1>
 </div>
 <div class="container mt-5 w-50">
-  <form action="" method="post">
+  {% if success %}
+  <div class="alert alert-success" role="alert">
+    {{ success }}
+  </div>
+  {% endif %}
+  {% if error %}
+  <div class="alert alert-danger" role="alert">
+    {{error}}
+  </div>
+  {% endif %}
+  <form action="/trabajador/" method="post">
+    {% csrf_token %}
     <h2 class="my-4">¿Cómo te sientes el día de hoy?</h2>
     <div class="container mb-2 mt-2">
       <label>
-        <input type="radio" name="sentimiento" value="feliz" checked>
+        <input type="radio" name="sentimiento" value="fa-face-smile" checked>
         <i class="fa-solid fa-face-smile"></i></
       </label>
       <label>
-        <input type="radio" name="sentimiento" value="meh">
+        <input type="radio" name="sentimiento" value="fa-face-meh">
         <i class="fa-solid fa-face-meh"></i>
       </label>
       <label>
-        <input type="radio" name="sentimiento" value="triste">
+        <input type="radio" name="sentimiento" value="fa-face-sad-tear">
         <i class="fa-solid fa-face-sad-tear"></i></
       </label>
       
     </div>
     <h2 class="my-4">¿Qué pasa?</h2>
-    <textarea class="form-control" placeholder="Expresa como te sientes en este cuadro de texto" id="texto" style="height: 100px"></textarea>
+    <textarea name="texto" class="form-control" placeholder="Expresa como te sientes en este cuadro de texto" id="texto" style="height: 100px"></textarea>
     <button class="btn btn-primary btn-block my-4"> Envíar</button>
   </form>
 </div>

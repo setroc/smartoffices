@@ -24,7 +24,10 @@
           {% endif %}
         </td>
         <td>
-          <button class="btn btn-primary" {% if tarea.completado %} disabled {% endif %}>Completar</button>
+          <form action="{% url 'trabajadorMacarTareaCompletada' tarea.id %}" method="POST">
+            {% csrf_token %}
+            <button class="btn btn-primary" {% if tarea.completado %} disabled {% endif %}>Completar</button>
+          </form>
         </td>
       </tr>
     </tbody>

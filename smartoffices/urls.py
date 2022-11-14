@@ -44,12 +44,14 @@ urlpatterns = [
 
     path('jefe/teams/reunion/', jefeViews.asignarReunionAEquipo, name='jefeAsignarReunionAEquipo'),
     path('jefe/teams/reunion/<int:equipo_id>', jefeViews.crearReunion, name='jefeCrearReunion'),
+    path('jefe/teams/reunion/<int:equipo_id>/retroalimentacion/<int:reunion_id>', jefeViews.agregarRetroalimentacion, name='jefeAgregarRetroalimentacion'),
     path('jefe/teams/reunion/<int:equipo_id>/ver', jefeViews.verReuniones, name='jefeVerReuniones'),
     # Jefe - Trabajadores
     path('user/signupTrabajador/',usuario.crearTrabajador, name='signupTrabajador' ),
     path('jefe/trabajadores/',jefeViews.listarTrabajadores, name='listarTrabajadores' ),
     path('jefe/trabajadores/<int:trabajador_id>', jefeViews.editarTrabajador, name='editarTrabajador'),
     path('jefe/trabajadores/<int:trabajador_id>/delete', jefeViews.eliminarTrabajador, name='eliminarTrabajador'),
+    path('jefe/trabajadores/<int:trabajador_id>/estados', jefeViews.estadosTrabajador, name='estadosTrabajador'),
 
     # Trabajador
     path('trabajador/', trabajador.home, name='trabajadorHome'),
@@ -59,7 +61,9 @@ urlpatterns = [
 
     # Trabajador tareas
     path('trabajador/tareas', trabajador.tareas, name='trabajadorTareas'),
+    path('trabajador/tareas/<int:tarea_id>', trabajador.marcarTareaCompletada, name='trabajadorMacarTareaCompletada'),
 
     # Trabajador reuniones
     path('trabajador/reuniones', trabajador.reuniones, name='trabajadorReuniones'),
+    path('trabajador/reuniones/<int:reunion_id>', trabajador.reunionRetroalimentacion, name='trabajadorReunionRetroalimentacion'),
 ]

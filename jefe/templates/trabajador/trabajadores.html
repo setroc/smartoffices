@@ -12,6 +12,7 @@
         <th scope="col">Nombre</th>
         <th scope="col">Apellidos</th>
         <th scope="col">Email</th>
+        <th scope="col">Estados de ánimo</th>
         <th scope="col">Editar</th>
       </tr>
     </thead>
@@ -22,6 +23,7 @@
         <td>{{trabajador.nombre}}</td>
         <td>{{trabajador.apellidos}}</td>
         <td>{{trabajador.email}}</td>
+        <td><a href="/jefe/trabajadores/{{trabajador.id}}/estados">Ver estados</i></a></td>
         <td class="d-flex align-items-center" >
           <a href="/jefe/trabajadores/{{trabajador.id}}"><i class="fa-regular fa-pen-to-square"></i></a>
           <form action="{% url 'eliminarTrabajador' trabajador.id %}" method="POST">

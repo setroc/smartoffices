@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <h1>Estados de ánimo de {{trabajador.nombre}} {{trabajador.apellidos}}</h1>
+
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Fecha</th>
+        <th scope="col">Descripción</th>
+        <th scope="col">Estado</th>
+      </tr>
+    </thead>
+    {% for estado in estados %}
+    <tbody>
+      <tr>
+        <td>{{estado.fecha}}</td>
+        <td>{{estado.texto}}</td>
+        <td>
+          <i class="fa-solid {{estado.sentimiento}}"></i>
+        </td>
+    </tbody>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

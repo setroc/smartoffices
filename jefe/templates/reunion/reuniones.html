@@ -22,7 +22,9 @@
         <td><a href="{{reunion.link}}">{{reunion.link}}</a></td>
         <td>{{reunion.descripcion}}</td>
         <td>{{reunion.fecha}}</td>
-        <td>Añadir</td>
+        <td>
+          <a href="/jefe/teams/reunion/{{equipo_id}}/retroalimentacion/{{reunion.id}}">Añadir</i></a>
+        </td>
     </tbody>
     {% endfor %}
   </table>

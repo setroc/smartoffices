@@ -1,0 +1,13 @@
+{% extends 'baseT.html' %}
+{% block content %}
+<div class="container mt-5">
+  <h1>Retroalimentación</h1>
+  <div class="form-floating mt-5 mb-5">
+    <textarea class="form-control" style="height: 100px" disabled>
+      {{reunion.retroalimentacion}}
+    
+    </textarea>
+  </div>
+  <a class="btn btn-primary" href="/trabajador/reuniones">Regresar</a>
+</div>
+{% endblock %}

@@ -35,7 +35,7 @@ class Reunion(models.Model):
   titulo = models.CharField(max_length=200)
   link = models.CharField(max_length=200)
   descripcion = models.TextField(max_length=1000)
-  fecha = models.DateField()
+  fecha = models.CharField(max_length=50)
   retroalimentacion = models.TextField(max_length=1000, default="")
   def __str__(self):
     return self.equipo.titulo + ' - ' + self.titulo

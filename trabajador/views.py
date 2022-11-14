@@ -4,14 +4,29 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 
-from .forms import TrabajadorUpdateForm
+from .forms import TrabajadorUpdateForm, EstadoAnimoForm
 from usuario.models import Usuario
 from jefe.models import Tarea, Reunion, EquipoHasTrabajador
 
+from datetime import datetime
 # Create your views here.
 @login_required
 def home(request):
-  return render(request,'homeT.html')
+  if request.method == 'GET':
+    return render(request,'homeT.html')
+  else:
+    try:
+      now = datetime.now()
+      form = EstadoAnimoForm(request.POST)
+      nuevoEstado = form.save(commit=False)
+      nuevoEstado.usuario = request.user
+      nuevoEstado.fecha = now.strftime("%d/%m/%Y %H:%M:%S")
+      nuevoEstado.save()
+      return render(request,'homeT.html', {'success':'Estado registrado'})
+    except ValueError as e:
+      print(e)
+      return render(request,'homeT.html', {'error':'Error al registrar estado.'})
+
 
 @login_required
 def signout(request):
@@ -48,6 +63,17 @@ def tareas(request):
   tareas = Tarea.objects.filter(trabajador = request.user)
   return render(request, 'tareasT.html', {'tareas':tareas})
 
+@login_required
+def marcarTareaCompletada(request, tarea_id):
+  if request.method == 'POST':
+    try:
+      tarea = get_object_or_404(Tarea, pk=tarea_id)
+      tarea.completado = True
+      tarea.save()
+      return redirect('trabajadorTareas')
+    except ValueError:
+      return redirect('trabajadorTareas')
+
 # Reuniones
 @login_required
 def reuniones(request):
@@ -56,3 +82,7 @@ def reuniones(request):
     reuniones = Reunion.objects.filter(equipo = e.equipo)
     return render(request, 'reunionesT.html', {'reuniones':reuniones})
   # print(reuniones)
+@login_required
+def reunionRetroalimentacion(request, reunion_id):
+  reunion = get_object_or_404(Reunion, pk=reunion_id)
+  return render(request, 'verRetroalimentacion.html', {'reunion':reunion})

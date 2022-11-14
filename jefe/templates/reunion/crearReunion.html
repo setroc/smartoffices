@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container w-50 mt-5">
+  <h1>Crear reunión</h1>
+  {% if success %}
+  <div class="alert alert-success" role="alert">
+    {{ success }}
+  </div>
+  {% endif %}
+  {% if error %}
+  <div class="alert alert-danger" role="alert">
+    {{error}}
+  </div>
+  {% endif %}
+  <form action="/jefe/teams/reunion/{{ equipo_id }}" method="post">
+    {% csrf_token %}
+    <div class="form-outline mb-4">
+      <label class="form-label" for="id_titulo">Titulo:</label>
+      <input name="titulo" type="text" id="id_titulo" class="form-control" autofocus required/>
+    </div>
+    <div class="form-outline mb-4">
+      <label class="form-label" for="id_link">Link:</label>
+      <input name="link" type="text" id="id_link" class="form-control" autofocus required/>
+    </div>
+    <div class="form-outline mb-4">
+      <label class="form-label" for="id_descripcion">Descripción:</label>
+      <textarea class="form-control" name="descripcion" id="id_descripcion" style="height: 100px" required></textarea>
+    </div>
+    <div class="form-outline mb-4">
+      <label class="form-label" for="id_fecha">Fecha y hora:</label>
+      <input name="fecha" type="datetime-local" id="id_fecha" class="form-control" autofocus required/>
+    </div>
+  
+    <!-- Submit button -->
+    <div class="d-grid">
+      <button class="btn btn-primary mb-4">Crear reunión</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
